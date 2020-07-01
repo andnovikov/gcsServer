@@ -6,7 +6,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.3.1.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
 	<groupId>ru.diasoft.micro</groupId>
 	<artifactId>gcsServer</artifactId>
@@ -27,12 +27,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web-services</artifactId>
 		</dependency>
-		<!-- tag::springws[] -->
 		<dependency>
 			<groupId>wsdl4j</groupId>
 			<artifactId>wsdl4j</artifactId>
 		</dependency>
-		<!-- end::springws[] -->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -69,13 +67,14 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<!-- tag::xsd[] -->
+
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>jaxb2-maven-plugin</artifactId>
 				<version>2.5.0</version>
 				<executions>
 					<execution>
+						<phase>generate-resources</phase>
 						<id>xjc</id>
 						<goals>
 							<goal>xjc</goal>
@@ -83,13 +82,12 @@
 					</execution>
 				</executions>
 				<configuration>
+					<sourceType>wsdl</sourceType>
 					<sources>
-						<source>${project.basedir}/src/main/resources/countries.xsd</source>
-						<source>${project.basedir}/src/main/resources/wsdl/types.xsd</source>
+						<source>${project.basedir}/src/main/resources/wsdl/inter-gate-ibank-ws.wsdl</source>
 					</sources>
 				</configuration>
 			</plugin>
-			<!-- end::xsd[] -->
 		</plugins>
 	</build>
 

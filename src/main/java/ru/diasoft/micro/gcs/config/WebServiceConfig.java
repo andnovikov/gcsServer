@@ -1,4 +1,4 @@
-package ru.diasoft.micro.gcs;
+package ru.diasoft.micro.gcs.config;
 
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
@@ -9,6 +9,8 @@ import org.springframework.ws.config.annotation.EnableWs;
 import org.springframework.ws.config.annotation.WsConfigurerAdapter;
 import org.springframework.ws.transport.http.MessageDispatcherServlet;
 import org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition;
+import org.springframework.ws.wsdl.wsdl11.SimpleWsdl11Definition;
+import org.springframework.ws.wsdl.wsdl11.Wsdl11Definition;
 import org.springframework.xml.xsd.SimpleXsdSchema;
 import org.springframework.xml.xsd.XsdSchema;
 
@@ -23,18 +25,15 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 		return new ServletRegistrationBean(servlet, "/ws/*");
 	}
 
-	@Bean(name = "countries")
-	public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema countriesSchema) {
-		DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-		wsdl11Definition.setPortTypeName("CountriesPort");
-		wsdl11Definition.setLocationUri("/ws");
-		wsdl11Definition.setTargetNamespace("http://spring.io/guides/gs-producing-web-service");
-		wsdl11Definition.setSchema(countriesSchema);
-		return wsdl11Definition;
+	@Bean(name = "inter-gate-ibank-ws")
+	public Wsdl11Definition defaultWsdl11Definition(){
+		SimpleWsdl11Definition wsdl11Definition  = new SimpleWsdl11Definition();
+		wsdl11Definition .setWsdl(new ClassPathResource("wsdl/inter-gate-ibank-ws.wsdl"));
+		return wsdl11Definition ;
 	}
 
-	@Bean
-	public XsdSchema countriesSchema() {
-		return new SimpleXsdSchema(new ClassPathResource("countries.xsd"));
+	@Bean(name = "types")
+	public SimpleXsdSchema simpleXsdSchema(){
+		return new SimpleXsdSchema(new ClassPathResource("wsdl/types.xsd"));
 	}
 }
