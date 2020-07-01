@@ -1,0 +1,671 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://ws.ibank.gate.inter.gcs/wsdl"
+    xmlns:ins="http://ws.ibank.gate.inter.gcs"
+    xmlns:wns="http://ws.ibank.gate.inter.gcs/wsdl"
+    xmlns:tns="http://ws.ibank.gate.inter.gcs/types"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <schema elementFormDefault="qualified"
+              targetNamespace="http://ws.ibank.gate.inter.gcs/wsdl"
+              xmlns="http://www.w3.org/2001/XMLSchema">
+      
+      <import namespace="http://ws.ibank.gate.inter.gcs/types" schemaLocation="types.xsd"/>
+
+      <!-- {card-info} -->
+      <element name="cardInfo">
+        <complexType>
+          <complexContent>
+            <extension base="tns:WsRequestDto">
+              <sequence/>
+            </extension>
+          </complexContent>
+        </complexType>
+      </element>
+      <element name="cardInfoResponse">
+        <complexType>
+          <sequence>
+            <element name="cardInfoResult" type="tns:WsCardInfoResponseDto"/>
+          </sequence>
+        </complexType>
+      </element>
+      
+      <!-- {card-bal} -->
+      <element name="cardBal">
+        <complexType>
+          <complexContent>
+            <extension base="tns:WsRequestDto">
+              <sequence/>
+            </extension>
+          </complexContent>
+        </complexType>
+      </element>
+      <element name="cardBalResponse">
+        <complexType>
+          <sequence>
+            <element name="cardBalResult" type="tns:WsCardBalResponseDto"/>
+          </sequence>
+        </complexType>
+      </element>
+      
+      <!-- {tlc-info} -->  
+      <element name="tlcInfo">
+        <complexType>
+          <complexContent>
+            <extension base="tns:WsRequestDto">
+              <sequence>
+                <element name="address" type="string"/>
+              </sequence>
+            </extension>
+          </complexContent>
+        </complexType>
+      </element>
+      <element name="tlcInfoResponse">
+        <complexType>
+          <sequence>
+            <element name="tlcInfoResult" type="tns:WsTlcInfoResponseDto"/>
+          </sequence>
+        </complexType>
+      </element>
+      
+      <!-- {hold-info} -->
+      <element name="holdInfo">
+        <complexType>
+          <complexContent>
+            <extension base="tns:WsRequestDto">
+              <sequence>
+                <element name="fromDt" type="dateTime"/>
+                <element name="toDt" type="dateTime"/>
+                <element name="searchType" type="string"/>
+                <element name="utrnNo" type="integer"/>
+                <element name="count" type="integer"/>
+              </sequence>
+            </extension>
+          </complexContent>
+        </complexType>
+      </element>
+      <element name="holdInfoResponse">
+        <complexType>
+          <sequence>
+            <element name="holdInfoResult" type="tns:WsHoldInfoResponseDto"/>
+          </sequence>
+        </complexType>
+      </element>
+      
+      <!-- {trans-info} -->
+      <element name="transInfo">
+        <complexType>
+          <complexContent>
+            <extension base="tns:WsRequestDto">
+		          <sequence>
+		            <element name="fromDt" type="dateTime"/>
+		            <element name="toDt" type="dateTime"/>
+		            <element name="searchType" type="string"/>
+		            <element name="utrnNo" type="integer"/>
+		            <element name="count" type="integer"/>
+		          </sequence>
+		        </extension>
+		      </complexContent>
+        </complexType>
+      </element>
+      <element name="transInfoResponse">
+        <complexType>
+          <sequence>
+            <element name="transInfoResult" type="tns:WsTransInfoResponseDto"/>
+          </sequence>
+        </complexType>
+      </element>
+      
+      
+      <!-- {pmnt-check} -->
+      <element name="pmntCheck">
+        <complexType>
+          <complexContent>
+            <extension base="tns:WsRequestDto" >
+              <sequence>
+                <element name="pmntExtId" type="string"/>
+                <element name="pmntType" type="string"/>
+                <element name="pmntData" type="string"/>
+                <element name="amount" type="integer"/>
+                <element name="currency" type="string"/>
+              </sequence>
+			      </extension>
+          </complexContent>
+        </complexType>
+      </element>
+      <element name="pmntCheckResponse">
+        <complexType>
+          <sequence>
+            <element name="pmntCheckResult" type="tns:WsPmntCheckResponseDto"/>
+          </sequence>
+        </complexType>
+      </element>
+
+      
+      <!-- {pmnt} -->
+      <element name="pmnt">
+        <complexType>
+          <complexContent>
+            <extension base="tns:WsRequestDto">
+              <sequence>
+                <element name="pmntExtId" type="string"/>
+                <element name="pmntType" type="string"/>
+                <element name="pmntData" type="string"/>
+                <element name="amount" type="integer"/>
+                <element name="currency" type="string"/>
+              </sequence>
+            </extension>
+          </complexContent>
+        </complexType>
+      </element>
+      <element name="pmntResponse">
+        <complexType>
+          <sequence>
+            <element name="pmntResult" type="tns:WsPmntResponseDto"/>
+          </sequence>
+        </complexType>
+      </element>
+      
+      <!-- {pmnt-rev} -->
+      <element name="pmntRev">
+        <complexType>
+          <complexContent>
+            <extension base="tns:WsRequestDto">
+              <sequence>
+                <element name="pmntExtId" type="string"/>
+                <element name="pmntType" type="string"/>
+                <element name="pmntData" type="string"/>
+                <element name="amount" type="integer"/>
+                <element name="currency" type="string"/>
+              </sequence>
+            </extension>
+          </complexContent>
+        </complexType>
+      </element>
+      <element name="pmntRevResponse">
+        <complexType>
+          <sequence>
+            <element name="pmntRevResult" type="tns:WsPmntRevResponseDto"/>
+          </sequence>
+        </complexType>
+      </element>
+      
+      <!-- {pmnt-ex} -->
+      <element name="pmntEx">
+        <complexType>
+          <complexContent>
+            <extension base="tns:WsRequestDto">
+              <sequence>
+                <element name="pmntExtId" type="string"/>
+                <element name="pmntMode" type="string"/>
+                <element name="pmntType" type="string"/>
+                <element name="pmntData" type="string"/>
+                <element name="amount" type="integer"/>
+                <element name="currency" type="string"/>
+                <element name="params" type="tns:WsKeyPairDto" minOccurs="0" maxOccurs="unbounded"/>
+              </sequence>
+            </extension>
+          </complexContent>
+        </complexType>
+      </element>
+      <element name="pmntExResponse">
+        <complexType>
+          <sequence>
+            <element name="pmntExResult" type="tns:WsPmntExResponseDto"/>
+          </sequence>
+        </complexType>
+      </element>
+      
+      <!-- {card-chg-status} -->
+      <element name="cardChgStatus">
+        <complexType>
+          <complexContent>
+            <extension base="tns:WsRequestDto">
+		          <sequence>
+		            <element name="status" type="string"/>
+		          </sequence>
+		        </extension>
+		      </complexContent>
+        </complexType>
+      </element>
+      
+      <element name="cardChgStatusResponse">
+        <complexType>
+          <sequence>
+            <element name="cardChgStatusResult" type="tns:WsCardChgStatusResponseDto"/>
+          </sequence>
+        </complexType>
+      </element>
+      
+      <!-- {card-chg-lmt} -->
+      <element name="cardChgLmt">
+        <complexType>
+          <complexContent>
+            <extension base="tns:WsRequestDto">
+		          <sequence>
+		            <element name="source" type="string"/>
+		            <element name="type" type="string"/>
+		            <element name="cycleType" type="string"/>
+		            <element name="value" type="integer"/>
+		            <element name="currency" type="string"/>
+		          </sequence>
+		        </extension>
+		      </complexContent>
+        </complexType>
+      </element>
+      
+      <element name="cardChgLmtResponse">
+        <complexType>
+          <sequence>
+            <element name="cardChgLmtResult" type="tns:WsCardChgLmtResponseDto"/>
+          </sequence>
+        </complexType>
+      </element>
+      
+           
+      <!-- {card-info-ext} -->
+      <element name="cardInfoExt">
+        <complexType>
+          <complexContent>
+            <extension base="tns:WsRequestDto">
+              <sequence/>
+            </extension>
+          </complexContent>  
+        </complexType>
+      </element>
+      <element name="cardInfoExtResponse">
+        <complexType>
+          <sequence>
+            <element name="cardInfoExtResult" type="tns:WsCardInfoExtResponseDto"/>
+          </sequence>
+        </complexType>
+      </element>
+      
+      
+      <!-- {card-geo-restriction-info} -->
+      <element name="cardGeoRestrictionInfo">
+        <complexType>
+          <complexContent>
+            <extension base="tns:WsRequestDto">
+              <sequence/>
+            </extension>
+          </complexContent>
+        </complexType>
+      </element>
+      <element name="cardGeoRestrictionInfoResponse">
+        <complexType>
+          <sequence>
+            <element name="cardGeoRestrictionInfoResult" type="tns:WsCardGeoRestrictionInfoResponseDto"/>
+          </sequence>
+        </complexType>
+      </element>
+      
+      <!-- {card-chg-geo-restriction} -->
+      <element name="cardChgGeoRestriction">
+        <complexType>
+          <complexContent>
+            <extension base="tns:WsRequestDto">
+              <sequence>
+                <!-- Ограничение только на интернет операции для ВСЕХ регионов -->
+                <!-- 1 - только 3DS, 0 - любая интернет покупка -->
+                <element name="internetOnly3DS" type="string"/>
+                <!-- 1:1,2, 2:2,4 -->
+                <element name="params" type="tns:WsCardRestrictionDto" minOccurs="1" maxOccurs="unbounded"/>
+              </sequence>
+            </extension>
+          </complexContent>
+        </complexType>
+      </element>
+      <element name="cardChgGeoRestrictionResponse">
+        <complexType>
+          <sequence>
+            <element name="cardChgGeoRestrictionResult" type="tns:WsCardChgGeoRestrictionResponseDto"/>
+          </sequence>
+        </complexType>
+      </element>      
+      
+    </schema>
+  </wsdl:types>
+  
+
+  <!-- {card-info} -->
+  <wsdl:message name="cardInfoRequest">
+    <wsdl:part element="wns:cardInfo" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="cardInfoResponse">
+    <wsdl:part element="wns:cardInfoResponse" name="parameters"/>
+  </wsdl:message>
+  
+  <!-- {card-bal} -->
+  <wsdl:message name="cardBalRequest">
+    <wsdl:part element="wns:cardBal" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="cardBalResponse">
+    <wsdl:part element="wns:cardBalResponse" name="parameters"/>
+  </wsdl:message>
+  
+  <!-- {tlc-info} -->
+  <wsdl:message name="tlcInfoRequest">
+    <wsdl:part element="wns:tlcInfo" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="tlcInfoResponse">
+    <wsdl:part element="wns:tlcInfoResponse" name="parameters"/>
+  </wsdl:message>
+  
+  <!-- {hold-info} -->
+  <wsdl:message name="holdInfoRequest">
+    <wsdl:part element="wns:holdInfo" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="holdInfoResponse">
+    <wsdl:part element="wns:holdInfoResponse" name="parameters"/>
+  </wsdl:message>
+  
+  <!-- {trans-info} -->
+  <wsdl:message name="transInfoRequest">
+    <wsdl:part element="wns:transInfo" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="transInfoResponse">
+    <wsdl:part element="wns:transInfoResponse" name="parameters"/>
+  </wsdl:message>
+      
+  <!-- {pmnt-check} -->
+  <wsdl:message name="pmntCheckRequest">
+    <wsdl:part element="wns:pmntCheck" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="pmntCheckResponse">
+    <wsdl:part element="wns:pmntCheckResponse" name="parameters"/>
+  </wsdl:message>
+  
+  <!-- {pmnt} -->
+  <wsdl:message name="pmntRequest">
+    <wsdl:part element="wns:pmnt" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="pmntResponse">
+    <wsdl:part element="wns:pmntResponse" name="parameters"/>
+  </wsdl:message>
+  
+  <!-- {pmnt-rev} -->
+  <wsdl:message name="pmntRevRequest">
+    <wsdl:part element="wns:pmntRev" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="pmntRevResponse">
+    <wsdl:part element="wns:pmntRevResponse" name="parameters"/>
+  </wsdl:message>
+  
+  <!-- {pmnt-ex} -->
+  <wsdl:message name="pmntExRequest">
+    <wsdl:part element="wns:pmntEx" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="pmntExResponse">
+    <wsdl:part element="wns:pmntExResponse" name="parameters"/>
+  </wsdl:message>
+  
+  <!-- {card-chg-status} -->
+  <wsdl:message name="cardChgStatusRequest">
+    <wsdl:part element="wns:cardChgStatus" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="cardChgStatusResponse">
+    <wsdl:part element="wns:cardChgStatusResponse" name="parameters"/>
+  </wsdl:message>
+  
+  <!-- {card-chg-lmt} -->
+  <wsdl:message name="cardChgLmtRequest">
+    <wsdl:part element="wns:cardChgLmt" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="cardChgLmtResponse">
+    <wsdl:part element="wns:cardChgLmtResponse" name="parameters"/>
+  </wsdl:message>
+
+  <!-- {card-info-ext} -->
+  <wsdl:message name="cardInfoExtRequest">
+    <wsdl:part element="wns:cardInfoExt" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="cardInfoExtResponse">
+    <wsdl:part element="wns:cardInfoExtResponse" name="parameters"/>
+  </wsdl:message>
+    
+  <!-- {card-geo-restriction-info} -->
+  <wsdl:message name="cardGeoRestrictionInfoRequest">
+    <wsdl:part element="wns:cardGeoRestrictionInfo" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="cardGeoRestrictionInfoResponse">
+    <wsdl:part element="wns:cardGeoRestrictionInfoResponse" name="parameters"/>
+  </wsdl:message>
+  
+  <!-- {card-chg-geo-restriction} -->
+  <wsdl:message name="cardChgGeoRestrictionRequest">
+    <wsdl:part element="wns:cardChgGeoRestriction" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="cardChgGeoRestrictionResponse">
+    <wsdl:part element="wns:cardChgGeoRestrictionResponse" name="parameters"/>
+  </wsdl:message>
+
+  
+  
+  <wsdl:portType name="InterGateIBankWs">
+    <!-- {card-info} -->
+    <wsdl:operation name="cardInfo">
+      <wsdl:input message="wns:cardInfoRequest" name="cardInfoRequest"/>
+      <wsdl:output message="wns:cardInfoResponse" name="cardInfoResponse"/>
+    </wsdl:operation>
+    <!-- {card-bal} -->
+    <wsdl:operation name="cardBal">
+      <wsdl:input message="wns:cardBalRequest" name="cardBalRequest"/>
+      <wsdl:output message="wns:cardBalResponse" name="cardBalResponse"/>
+    </wsdl:operation>
+    <!-- {tlc-info} -->
+    <wsdl:operation name="tlcInfo">
+      <wsdl:input message="wns:tlcInfoRequest" name="tlcInfoRequest"/>
+      <wsdl:output message="wns:tlcInfoResponse" name="tlcInfoResponse"/>
+    </wsdl:operation>
+    <!-- {hold-info} -->
+    <wsdl:operation name="holdInfo">
+      <wsdl:input message="wns:holdInfoRequest" name="holdInfoRequest"/>
+      <wsdl:output message="wns:holdInfoResponse" name="holdInfoResponse"/>
+    </wsdl:operation>
+    <!-- {trans-info} -->
+    <wsdl:operation name="transInfo">
+      <wsdl:input message="wns:transInfoRequest" name="transInfoRequest"/>
+      <wsdl:output message="wns:transInfoResponse" name="transInfoResponse"/>
+    </wsdl:operation>
+    <!-- {pmnt-check} -->
+    <wsdl:operation name="pmntCheck">
+      <wsdl:input message="wns:pmntCheckRequest" name="pmntCheckRequest"/>
+      <wsdl:output message="wns:pmntCheckResponse" name="pmntCheckResponse"/>
+    </wsdl:operation>
+    <!-- {pmnt} -->
+    <wsdl:operation name="pmnt">
+      <wsdl:input message="wns:pmntRequest" name="pmntRequest"/>
+      <wsdl:output message="wns:pmntResponse" name="pmntResponse"/>
+    </wsdl:operation>
+    <!-- {pmnt-rev} -->
+    <wsdl:operation name="pmntRev">
+      <wsdl:input message="wns:pmntRevRequest" name="pmntRevRequest"/>
+      <wsdl:output message="wns:pmntRevResponse" name="pmntRevResponse"/>
+    </wsdl:operation>
+    <!-- {pmnt-ex} -->
+    <wsdl:operation name="pmntEx">
+      <wsdl:input message="wns:pmntExRequest" name="pmntExRequest"/>
+      <wsdl:output message="wns:pmntExResponse" name="pmntExResponse"/>
+    </wsdl:operation>
+    <!-- {card-chg-status} -->
+    <wsdl:operation name="cardChgStatus">
+      <wsdl:input message="wns:cardChgStatusRequest" name="cardChgStatusRequest"/>
+      <wsdl:output message="wns:cardChgStatusResponse" name="cardChgStatusResponse"/>
+    </wsdl:operation>
+    <!-- {card-chg-lmt} -->
+    <wsdl:operation name="cardChgLmt">
+      <wsdl:input message="wns:cardChgLmtRequest" name="cardChgLmtRequest"/>
+      <wsdl:output message="wns:cardChgLmtResponse" name="cardChgLmtResponse"/>
+    </wsdl:operation>
+    <!-- {card-info-ext} -->
+    <wsdl:operation name="cardInfoExt">
+      <wsdl:input message="wns:cardInfoExtRequest" name="cardInfoExtRequest"/>
+      <wsdl:output message="wns:cardInfoExtResponse" name="cardInfoExtResponse"/>
+    </wsdl:operation>
+    <!-- {card-geo-restriction-info} -->
+    <wsdl:operation name="cardGeoRestrictionInfo">
+      <wsdl:input message="wns:cardGeoRestrictionInfoRequest" name="cardGeoRestrictionInfoRequest"/>
+      <wsdl:output message="wns:cardGeoRestrictionInfoResponse" name="cardGeoRestrictionInfoResponse"/>
+    </wsdl:operation>
+    <!-- {card-chg-geo-restriction} -->
+    <wsdl:operation name="cardChgGeoRestriction">
+      <wsdl:input message="wns:cardChgGeoRestrictionRequest" name="cardChgGeoRestrictionRequest"/>
+      <wsdl:output message="wns:cardChgGeoRestrictionResponse" name="cardChgGeoRestrictionResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  
+
+  <wsdl:binding name="InterGateIBankWsSoapBinding" type="wns:InterGateIBankWs">
+    <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <!-- {card-info} -->
+    <wsdl:operation name="cardInfo">
+     <wsdlsoap:operation soapAction="urn:cardInfo"/>
+     <wsdl:input name="cardInfoRequest">
+       <wsdlsoap:body use="literal"/>
+     </wsdl:input>
+     <wsdl:output name="cardInfoResponse">
+       <wsdlsoap:body use="literal"/>
+     </wsdl:output>
+    </wsdl:operation>
+    <!-- {card-bal} -->
+    <wsdl:operation name="cardBal">
+      <wsdlsoap:operation soapAction="urn:cardBal"/>
+      <wsdl:input name="cardBalRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cardBalResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <!-- {tlc-info} -->
+    <wsdl:operation name="tlcInfo">
+      <wsdlsoap:operation soapAction="urn:tlcInfo"/>
+      <wsdl:input name="tlcInfoRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="tlcInfoResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <!-- {hold-info} -->
+    <wsdl:operation name="holdInfo">
+      <wsdlsoap:operation soapAction="urn:holdInfo"/>
+      <wsdl:input name="holdInfoRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="holdInfoResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <!-- {trans-info} -->
+    <wsdl:operation name="transInfo">
+      <wsdlsoap:operation soapAction="urn:transInfo"/>
+      <wsdl:input name="transInfoRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="transInfoResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <!-- {pmnt-check} -->
+    <wsdl:operation name="pmntCheck">
+      <wsdlsoap:operation soapAction="urn:pmntCheck"/>
+      <wsdl:input name="pmntCheckRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="pmntCheckResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <!-- {pmnt} -->
+    <wsdl:operation name="pmnt">
+      <wsdlsoap:operation soapAction="urn:pmnt"/>
+      <wsdl:input name="pmntRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="pmntResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <!-- {pmnt-rev} -->
+    <wsdl:operation name="pmntRev">
+      <wsdlsoap:operation soapAction="urn:pmntRev"/>
+      <wsdl:input name="pmntRevRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="pmntRevResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <!-- {pmnt-ex} -->
+    <wsdl:operation name="pmntEx">
+      <wsdlsoap:operation soapAction="urn:pmntEx"/>
+      <wsdl:input name="pmntExRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="pmntExResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <!-- {card-chg-status} -->
+    <wsdl:operation name="cardChgStatus">
+      <wsdlsoap:operation soapAction="urn:cardChgStatus"/>
+      <wsdl:input name="cardChgStatusRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cardChgStatusResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <!-- {card-chg-lmt} -->
+    <wsdl:operation name="cardChgLmt">
+      <wsdlsoap:operation soapAction="urn:cardChgLmt"/>
+      <wsdl:input name="cardChgLmtRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cardChgLmtResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <!-- {card-info-ext} -->
+    <wsdl:operation name="cardInfoExt">
+     <wsdlsoap:operation soapAction="urn:cardInfoExt"/>
+     <wsdl:input name="cardInfoExtRequest">
+       <wsdlsoap:body use="literal"/>
+     </wsdl:input>
+     <wsdl:output name="cardInfoExtResponse">
+       <wsdlsoap:body use="literal"/>
+     </wsdl:output>
+    </wsdl:operation>
+    <!-- {card-geo-restriction-info} -->
+    <wsdl:operation name="cardGeoRestrictionInfo">
+      <wsdlsoap:operation soapAction="urn:cardGeoRestrictionInfo"/>
+      <wsdl:input name="cardGeoRestrictionInfoRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cardGeoRestrictionInfoResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <!-- {card-chg-geo-restriction} -->
+    <wsdl:operation name="cardChgGeoRestriction">
+      <wsdlsoap:operation soapAction="urn:cardChgGeoRestriction"/>
+      <wsdl:input name="cardChgGeoRestrictionRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cardChgGeoRestrictionResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+
+
+  <wsdl:service name="InterGateIBankWsService">
+    <wsdl:port binding="wns:InterGateIBankWsSoapBinding" name="inter-gate-ibank-ws">
+      <!-- wsdlsoap:address location="http://10.2.66.221:8280/inter-gate-ibank-ws"/-->
+      <wsdlsoap:address location="http://10.200.168.58:8280/inter-gate-ibank-ws"/>
+    </wsdl:port>
+  </wsdl:service>
+
+</wsdl:definitions>

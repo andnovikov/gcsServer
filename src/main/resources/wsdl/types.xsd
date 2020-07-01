@@ -1,0 +1,526 @@
+<schema elementFormDefault="qualified"
+    targetNamespace="http://ws.ibank.gate.inter.gcs/types"
+    xmlns:tns="http://ws.ibank.gate.inter.gcs/types"
+    xmlns="http://www.w3.org/2001/XMLSchema">
+  
+  <!-- complexType name="WsTestDataTypesDto">
+    <sequence>
+      <element name="f1" type="string"/>
+      <element name="f2" type="normalizedString"/>
+      <element name="f3" type="NMTOKEN"/>
+      <element name="f4" type="byte"/>
+      <element name="f5" type="unsignedByte"/>
+      <element name="f6" type="base64Binary"/>
+      <element name="f7" type="hexBinary"/>
+      <element name="f8" type="integer"/>
+      <element name="f9" type="positiveInteger"/>
+      <element name="f10" type="negativeInteger"/>
+      <element name="f11" type="int"/>
+      <element name="f12" type="unsignedInt"/>
+      <element name="f13" type="long"/>
+      <element name="f14" type="unsignedLong"/>
+      <element name="f15" type="short"/>
+      <element name="f16" type="unsignedShort"/>
+      <element name="f17" type="decimal"/>
+      <element name="f18" type="float"/>
+      <element name="f19" type="double"/>
+      <element name="f20" type="boolean"/>
+      <element name="f21" type="time"/>
+      <element name="f22" type="date"/>
+      <element name="f23" type="dateTime"/>
+      <element name="f24" type="duration"/>
+    </sequence>
+  </complexType-->
+  
+  <complexType name="WsObjectDto">
+    <sequence/>
+  </complexType>
+  
+  <complexType name="WsMessageDto">
+    <sequence>
+      <element name="msgType" type="string"/>
+      <element name="msgData" type="string"/>
+      <element name="sign" type="string"/>
+      <element name="extCode" type="string"/>
+      <element name="extId" type="string"/>
+    </sequence>
+  </complexType>
+  
+  <complexType name="WsRequestDto">
+    <complexContent>
+      <extension base="tns:WsMessageDto">
+        <sequence>
+          <element name="cardNo" type="string"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  
+  <complexType name="WsResponseDataDto" abstract="true"/>
+  
+  <complexType name="WsResponseDto">
+    <complexContent>
+      <extension base="tns:WsMessageDto">
+        <sequence>
+          <element name="id" type="string"/>
+          <element name="resp" type="string"/>
+          <element name="respCode" type="string"/>
+          <element name="respDesc" type="string"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  
+  
+  <complexType name="WsKeyPairDto">
+    <sequence>
+      <element name="key" type="string"/>
+      <element name="value" type="string"/>
+    </sequence>
+  </complexType>
+  
+  <!-- Types for {card-info} -->
+  <complexType name="WsLimitDto">
+    <sequence>
+      <element name="source" type="string"/>
+      <element name="type" type="string"/>
+      <element name="cycleType" type="string"/>
+      <element name="value" type="integer"/>
+      <element name="currency" type="string"/>
+    </sequence>
+  </complexType>
+  
+  <complexType name="WsCardInfoDto">
+    <complexContent>
+      <extension base="tns:WsResponseDataDto">
+        <sequence>
+          <element name="status" type="string"/>
+          <element name="expDt" type="string"/>
+          <element name="limits" type="tns:WsLimitDto" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  
+  <complexType name="WsCardInfoResponseDto">
+    <complexContent>
+      <extension base="tns:WsResponseDto">
+        <sequence>
+          <element name="data" type="tns:WsCardInfoDto"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  
+  
+  <!-- Types for {card-bal} -->
+  <complexType name="WsCardBalDto">
+    <complexContent>
+      <extension base="tns:WsResponseDataDto">
+        <sequence>
+          <element name="actBal" type="integer"/>
+          <element name="exceedLmt" type="integer"/>
+          <element name="currency" type="string"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  
+  <complexType name="WsCardBalResponseDto">
+    <complexContent>
+      <extension base="tns:WsResponseDto">
+        <sequence>
+          <element name="data" type="tns:WsCardBalDto"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  
+  
+  <!-- Types for {tlc-info} -->
+  <complexType name="WsTlcCardServiceDto">
+    <sequence>
+      <element name="id" type="integer"/>
+    </sequence>
+  </complexType>
+  
+  <complexType name="WsTlcCardDto">
+    <sequence>
+      <element name="pan" type="string"/>
+      <element name="nameIn" type="string"/>
+      <element name="nameOut" type="string"/>
+      <element name="status" type="string"/>
+      <element name="tlcSystem" type="string"/>
+      <element name="address" type="string"/>
+      <element name="services" type="tns:WsTlcCardServiceDto" minOccurs="0" maxOccurs="unbounded"/>
+    </sequence>
+  </complexType>
+  
+  <complexType name="WsTlcInfoDto">
+    <complexContent>
+      <extension base="tns:WsResponseDataDto">
+        <sequence>
+          <element name="clientId" type="integer"/>
+          <element name="address" type="string"/>
+          <element name="status" type="string"/>
+          <element name="cards" type="tns:WsTlcCardDto" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  
+  <complexType name="WsTlcInfoResponseDto">
+    <complexContent>
+      <extension base="tns:WsResponseDto">
+        <sequence>
+          <element name="data" type="tns:WsTlcInfoDto"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  
+  
+  <!-- Types for {hold-info} -->
+  <complexType name="WsHoldDto">
+    <sequence>
+      <element name="holdDt" type="dateTime"/>
+      <element name="sign" type="string"/>
+      <element name="amount" type="integer"/>
+      <element name="currency" type="string"/>
+      <element name="authCode" type="string"/>
+      <element name="refNum" type="string"/>
+      <element name="reversal" type="integer"/>
+      <element name="termId" type="string"/>
+      <element name="termName" type="string"/>
+      <element name="city" type="string"/>
+      <element name="termType" type="string"/>
+      <element name="convAmount" type="integer"/>
+      <element name="convCurrency" type="string"/>
+    </sequence>
+  </complexType>
+  
+  <complexType name="WsHoldInfoDto">
+    <complexContent>
+      <extension base="tns:WsResponseDataDto">
+        <sequence>
+          <element name="fromDt" type="dateTime"/>
+          <element name="toDt" type="dateTime"/>
+          <element name="searchType" type="string"/>
+          <element name="utrnNo" type="integer"/>
+          <element name="count" type="integer"/>
+          <element name="holdList" type="tns:WsHoldDto" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  
+  <complexType name="WsHoldInfoResponseDto">
+    <complexContent>
+      <extension base="tns:WsResponseDto">
+        <sequence>
+          <element name="data" type="tns:WsHoldInfoDto"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  
+  
+  <!-- Types for {trans-info} -->
+  <complexType name="WsTransDto">
+    <sequence>
+      <element name="transDt" type="dateTime"/>
+      <element name="sign" type="string"/>
+      <element name="amount" type="integer"/>
+      <element name="currency" type="string"/>
+      <element name="authCode" type="string"/>
+      <element name="refNum" type="string"/>
+      <element name="reversal" type="integer"/>
+      <element name="termId" type="string"/>
+      <element name="termName" type="string"/>
+      <element name="city" type="string"/>
+      <element name="termType" type="string"/>
+      <element name="convAmount" type="integer"/>
+      <element name="convCurrency" type="string"/>
+      <element name="transType" type="integer"/>
+      <element name="transTypeDesc" type="string"/>
+      <element name="respCode" type="integer"/>
+      <element name="newBal" type="integer"/>
+      <element name="oldBal" type="integer"/>
+    </sequence>
+  </complexType>
+  
+  <complexType name="WsTransInfoDto">
+    <complexContent>
+      <extension base="tns:WsResponseDataDto">
+        <sequence>
+          <element name="fromDt" type="dateTime"/>
+          <element name="toDt" type="dateTime"/>
+          <element name="searchType" type="string"/>
+          <element name="utrnNo" type="integer"/>
+          <element name="count" type="integer"/>
+          <element name="transList" type="tns:WsTransDto" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  
+  <complexType name="WsTransInfoResponseDto">
+    <complexContent>
+      <extension base="tns:WsResponseDto">
+        <sequence>
+          <element name="data" type="tns:WsTransInfoDto"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  
+  
+   
+  
+  
+  <complexType name="WsPmntBaseDto">
+    <complexContent>
+      <extension base="tns:WsResponseDataDto">
+        <sequence>
+          <element name="id" type="string"/>
+          <element name="extId" type="string"/>
+          <element name="serviceId" type="string"/>
+          <element name="outParams" type="tns:WsKeyPairDto" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  
+  <!-- Types for {pmnt-check} -->
+  <complexType name="WsPmntCheckDto">
+    <complexContent>
+      <extension base="tns:WsPmntBaseDto"/>
+    </complexContent>
+  </complexType>
+  
+  <complexType name="WsPmntCheckResponseDto">
+    <complexContent>
+      <extension base="tns:WsResponseDto">
+        <sequence>
+          <element name="data" type="tns:WsPmntCheckDto"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  
+  
+  <!-- Types for {pmnt} -->
+  <complexType name="WsPmntDto">
+    <complexContent>
+      <extension base="tns:WsPmntBaseDto"/>
+      <!-- extension base="tns:WsResponseDataDto">
+        <sequence>
+          <element name="id" type="string"/>
+          <element name="extId" type="string"/>
+          <element name="serviceId" type="string"/>
+        </sequence>
+      </extension-->
+    </complexContent>
+  </complexType>
+  
+  <complexType name="WsPmntResponseDto">
+    <complexContent>
+      <extension base="tns:WsResponseDto">
+        <sequence>
+          <element name="data" type="tns:WsPmntDto"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  
+  
+  <!-- Types for {pmnt-rev} -->
+  <complexType name="WsPmntRevDto">
+    <complexContent>
+      <extension base="tns:WsPmntBaseDto"/>
+      <!-- extension base="tns:WsResponseDataDto">
+        <sequence>
+          <element name="id" type="string"/>
+          <element name="extId" type="string"/>
+          <element name="serviceId" type="string"/>
+        </sequence>
+      </extension-->
+    </complexContent>
+  </complexType>
+  
+  <complexType name="WsPmntRevResponseDto">
+    <complexContent>
+      <extension base="tns:WsResponseDto">
+        <sequence>
+          <element name="data" type="tns:WsPmntRevDto"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  
+  
+  <!-- Types for {pmnt-ex} -->
+  <complexType name="WsPmntExDto">
+    <complexContent>
+      <extension base="tns:WsPmntBaseDto"/>
+      <!-- extension base="tns:WsResponseDataDto">
+        <sequence>
+          <element name="id" type="string"/>
+          <element name="extId" type="string"/>
+          <element name="serviceId" type="string"/>
+        </sequence>
+      </extension-->
+    </complexContent>
+  </complexType>
+  
+  <complexType name="WsPmntExResponseDto">
+    <complexContent>
+      <extension base="tns:WsResponseDto">
+        <sequence>
+          <element name="data" type="tns:WsPmntExDto"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  
+  
+  <!-- Types for {card-chg-status} -->
+  <complexType name="WsCardChgStatusDto">
+    <complexContent>
+      <extension base="tns:WsResponseDataDto">
+        <sequence>
+          <element name="newStatus" type="string"/>
+          <element name="oldStatus" type="string"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  
+  <complexType name="WsCardChgStatusResponseDto">
+    <complexContent>
+      <extension base="tns:WsResponseDto">
+        <sequence>
+          <element name="data" type="tns:WsCardChgStatusDto"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  
+  
+  <!-- Types for {card-chg-lmt} -->
+  <complexType name="WsCardChgLmtDto">
+    <complexContent>
+      <extension base="tns:WsResponseDataDto">
+        <sequence>
+          <element name="source" type="string"/>
+		      <element name="type" type="string"/>
+		      <element name="cycleType" type="string"/>
+		      <element name="oldValue" type="integer"/>
+		      <element name="newValue" type="integer"/>
+		      <element name="currency" type="string"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  
+  <complexType name="WsCardChgLmtResponseDto">
+    <complexContent>
+      <extension base="tns:WsResponseDto">
+        <sequence>
+          <element name="data" type="tns:WsCardChgLmtDto"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  
+  
+  <!-- Types for {card-info-ext} -->
+  <complexType name="WsCardInfoExtDto">
+    <complexContent>
+      <extension base="tns:WsResponseDataDto">
+        <sequence>
+          <element name="status" type="string"/>
+          <element name="expDt" type="string"/>
+          <element name="acctNo" type="string"/>
+          <element name="acctCur" type="string"/>
+          <element name="actBal" type="integer"/>
+          <element name="limits" type="tns:WsLimitDto" minOccurs="0" maxOccurs="unbounded"/>
+          <element name="tlcCards" type="tns:WsTlcCardDto" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  
+  <complexType name="WsCardInfoExtResponseDto">
+    <complexContent>
+      <extension base="tns:WsResponseDto">
+        <sequence>
+          <element name="data" type="tns:WsCardInfoExtDto"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+
+
+  
+  <!-- Types for {card-geo-restriction-info} -->
+  <complexType name="WsCardRestrictionDto">
+    <sequence>
+      <element name="idRegion" type="string"/>
+      <element name="idCategory" type="string" minOccurs="0" maxOccurs="unbounded"/>
+    </sequence>
+  </complexType>
+  
+  <complexType name="WsCardGeoRestrictionInfoDto">
+    <complexContent>
+      <extension base="tns:WsResponseDataDto">
+        <sequence>
+          <!-- Ограничение только на интернет операции для ВСЕХ регионов -->
+          <!-- 1 - только 3DS, 0 - любая интернет покупка -->
+          <element name="internetOnly3DS" type="string"/>
+          <!-- Список регионов и соответствующих им ID -->
+          <!-- 1:Азия, 2:США/Канада -->
+          <element name="regionList" type="tns:WsKeyPairDto" minOccurs="1" maxOccurs="unbounded"/>
+          <!-- Список категорий и соответствующих им ID -->
+          <!-- 1:Наличные, 2:покупки -->
+          <element name="categoryList" type="tns:WsKeyPairDto" minOccurs="1" maxOccurs="unbounded"/>
+          <!-- Список стран и соответствие их ID регионов -->
+          <!-- 1:Индонезия, 1:Таиланд, 2:США, 2:Канада -->
+          <element name="countryList" type="tns:WsKeyPairDto" minOccurs="1" maxOccurs="unbounded"/>
+          <!-- Ограничения (соответствие выбранных категорий регионам) -->
+          <!-- 1:1,2, 2:2,4 -->
+          <element name="restriction" type="tns:WsCardRestrictionDto" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  
+  <complexType name="WsCardGeoRestrictionInfoResponseDto">
+    <complexContent>
+      <extension base="tns:WsResponseDto">
+        <sequence>
+          <element name="data" type="tns:WsCardGeoRestrictionInfoDto"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  
+  
+  <!-- Types for {card-chg-geo-restriction} -->
+  <complexType name="WsCardChgGeoRestrictionDto">
+    <complexContent>
+      <extension base="tns:WsResponseDataDto"/>
+    </complexContent>
+  </complexType>
+  
+  <complexType name="WsCardChgGeoRestrictionResponseDto">
+    <complexContent>
+      <extension base="tns:WsResponseDto">
+        <sequence>
+          <element name="data" type="tns:WsCardChgGeoRestrictionDto"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  
+</schema>
